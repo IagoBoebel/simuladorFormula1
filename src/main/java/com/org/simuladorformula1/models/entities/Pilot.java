@@ -1,4 +1,4 @@
-package com.org.simuladorformula1.models;
+package com.org.simuladorformula1.models.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,10 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 
+@Entity
 public class Pilot {
 
     // Atributos
@@ -24,23 +25,23 @@ public class Pilot {
     // Idade
     @Min(17)
     @Max(62)
-    @NotBlank
+    @NotNull
     private int age;
 
     // Altura (cms)
     @Min(140)
     @Max(250)
-    @NotBlank
+    @NotNull
     private int height;
 
     // Peso (kgs)
     @Min(50)
     @Max(200)
-    @NotBlank
+    @NotNull
     private int weight;
 
     // Salario
-    @NotBlank
+    @NotNull
     private int salary;
 
     // Patrocinadores
@@ -51,6 +52,13 @@ public class Pilot {
     public Pilot() {}
 
     public Pilot(int age, String name, int height, int weight, int salary) {
+        if(age < 17 || age > 62) {
+            throw new IllegalArgumentException("A idade deve ser entre 17 e 62 anos");
+        } if(height < 140 || height > 250) {
+            throw new IllegalArgumentException("A altura deve ser entre 140 e 250 centimetros");
+        } if(weight < 50 || weight > 200) {
+            throw new IllegalArgumentException("O peso deve ser entre 50 e 200 kilos");
+        }
         this.name = name;
         this.height = height;
         this.weight = weight;
@@ -85,7 +93,7 @@ public class Pilot {
         return salary;
     }
 
-    public ArrayList<String> getSponsors() {
+   public ArrayList<String> getSponsors() {
         return sponsors;
     }
 
@@ -104,14 +112,23 @@ public class Pilot {
     }
 
     public void setAge(int age) {
+        if(age < 17 || age > 62) {
+            throw new IllegalArgumentException("A idade deve ser entre 17 e 62 anos");
+        }
         this.age = age;
     }
 
     public void setHeight(int height) {
+        if(height < 140 || height > 250) {
+            throw new IllegalArgumentException("A altura deve ser entre 140 e 250 centimetros");
+        }
         this.height = height;
     }
 
     public void setWeight(int weight) {
+        if(weight < 50 || weight > 200) {
+            throw new IllegalArgumentException("O peso deve ser entre 50 e 200 kilos");
+        }
         this.weight = weight;
     }
 
@@ -119,9 +136,11 @@ public class Pilot {
         this.salary = salary;
     }
 
+
     public void setSponsors(ArrayList<String> sponsors) {
         this.sponsors = sponsors;
     }
+
 
     public void setChampionPosition(int championPosition) {
         this.championPosition = championPosition;
