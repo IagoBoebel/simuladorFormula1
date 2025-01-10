@@ -1,15 +1,13 @@
 package com.org.simuladorformula1.models.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Pilot {
@@ -45,9 +43,13 @@ public class Pilot {
     private int salary;
 
     // Patrocinadores
-    private ArrayList<String> sponsors = new ArrayList<>();
+    private List<String> sponsors = new ArrayList<>();
     private int championPosition;
-    //private Team team;
+
+
+    @ManyToOne
+    @JoinColumn(name = "team_id", nullable = false)
+    private Team team;
 
     public Pilot() {}
 
@@ -68,6 +70,8 @@ public class Pilot {
 
 
     // Getters
+
+    public Team getTeam() {return team;}
 
     public Integer getId() {
         return id;
@@ -93,7 +97,7 @@ public class Pilot {
         return salary;
     }
 
-   public ArrayList<String> getSponsors() {
+   public List<String> getSponsors() {
         return sponsors;
     }
 
@@ -102,6 +106,7 @@ public class Pilot {
     }
 
     // Setters
+    public void setTeam(Team team) { this.team = team; }
 
     public void setId(int id) {
         this.id = id;
@@ -145,4 +150,6 @@ public class Pilot {
     public void setChampionPosition(int championPosition) {
         this.championPosition = championPosition;
     }
+
+    
 }

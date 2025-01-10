@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/pilot")
@@ -18,13 +19,13 @@ public class PilotController {
     private PilotRepository pilotRepository;
 
     @PostMapping("/add")
-    public Pilot addPilot() {
+    public Pilot addPilot(@Valid Pilot pilot) {
         if(pilots.size() >= 30) {
             return null;
         }
         try{
-            Pilot pilot = new Pilot(20, "João", 150, 150, 1500);
             pilotRepository.save(pilot);
+            pilots.add(pilot);
             return pilot;
         } catch (IllegalArgumentException e) {
             return null;
@@ -36,9 +37,18 @@ public class PilotController {
         return pilotRepository.findAll();
     }
 
+    @GetMapping("/searchByName/{name}")
+    public Pilot searchByName(@PathVariable String name) {
+        return pilotRepository.findByNameIgnoreCase(name);
+    }
+    @GetMapping("/searchById/{id}")
+    public Optional<Pilot> searchById(@PathVariable Integer id) {
+        return pilotRepository.findById(id);
+    }
+
     @PatchMapping("/parcialUpdate")
-    public Pilot updatePilotCompletely() {
-        return null;
+    public Pilot updatePilotCompletely(@Valid Pilot pilot) {
+       return null;
     }
 
     @PutMapping("/completeUpdate")
@@ -49,10 +59,21 @@ public class PilotController {
         }
         return null;
     }
-
-    @DeleteMapping("/delete")
-    public void deletPilot() {
-
+    @DeleteMapping("/delete/{id}")
+    public void deletePilot(@PathVariable int id) {
+        if (pilotRepository.existsById(id)) {
+            // Remove o piloto do BD
+            pilotRepository.deleteById(id);
+            // Remove o piloto do array de controle
+            pilots.removeIf(pilot -> pilot.getId() == id);
+        }
+    }
+    @DeleteMapping("/deleteAll")
+    public void deleteAllPilots() {
+        for(Pilot pilot : pilots) {
+            pilots.remove(pilot);
+            pilotRepository.deleteById(pilot.getId());
+        }
     }
 
 }
