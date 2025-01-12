@@ -20,10 +20,10 @@ public class GP {
     @Min(35)
     @Max(100)
     private int laps;
-    private List<String> classification = new ArrayList<>(20);
-    private ArrayList raceClassification;
-    private Pilot bestLap;
-    private Pilot winner;
+    //private List<String> classification = new ArrayList<>(20);
+    //private ArrayList raceClassification;
+    //private Pilot bestLap;
+    //private Pilot winner;
 
     // Constructors
     public GP() {}
@@ -58,35 +58,19 @@ public class GP {
         this.laps = laps;
     }
 
-    public ArrayList getClassification() {
-        return classification;
-    }
+    //public ArrayList getClassification() {return classification;}
 
-    public void setClassification(ArrayList classification) {
-        this.classification = classification;
-    }
+    // public void setClassification(ArrayList classification) {this.classification = classification;}
 
-    public ArrayList getRaceClassification() {
-        return raceClassification;
-    }
+    //public ArrayList getRaceClassification() {return raceClassification;}
 
-    public void setRaceClassification(ArrayList raceClassification) {
-        this.raceClassification = raceClassification;
-    }
+    //public void setRaceClassification(ArrayList raceClassification) {this.raceClassification = raceClassification;}
 
-    public Pilot getBestLap() {
-        return bestLap;
-    }
+    //public Pilot getBestLap() {return bestLap;}
 
-    public void setBestLap(Pilot bestLap) {
-        this.bestLap = bestLap;
-    }
+    //public void setBestLap(Pilot bestLap) {this.bestLap = bestLap;}
 
-    public Pilot getWinner() {
-        return winner;
-    }
+    //public Pilot getWinner() {return winner;}
 
-    public void setWinner(Pilot winner) {
-        this.winner = winner;
-    }
+    //public void setWinner(Pilot winner) {this.winner = winner;}
 }

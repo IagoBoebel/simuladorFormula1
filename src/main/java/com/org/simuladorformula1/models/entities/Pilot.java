@@ -26,48 +26,29 @@ public class Pilot {
     @NotNull
     private int age;
 
-    // Altura (cms)
-    @Min(140)
-    @Max(250)
-    @NotNull
-    private int height;
-
-    // Peso (kgs)
-    @Min(50)
-    @Max(200)
-    @NotNull
-    private int weight;
-
     // Salario
     @NotNull
-    private int salary;
+    private double salary;
 
     // Patrocinadores
     private List<String> sponsors = new ArrayList<>();
     private int championPosition;
 
-
     @ManyToOne
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id", nullable = true)
     private Team team;
 
+    // Construtor padrão obrigação do hibernate
     public Pilot() {}
 
-    public Pilot(int age, String name, int height, int weight, int salary) {
+    public Pilot(int age, String name, int height, int weight, double salary) {
         if(age < 17 || age > 62) {
             throw new IllegalArgumentException("A idade deve ser entre 17 e 62 anos");
-        } if(height < 140 || height > 250) {
-            throw new IllegalArgumentException("A altura deve ser entre 140 e 250 centimetros");
-        } if(weight < 50 || weight > 200) {
-            throw new IllegalArgumentException("O peso deve ser entre 50 e 200 kilos");
         }
         this.name = name;
-        this.height = height;
-        this.weight = weight;
         this.salary = salary;
         this.age = age;
     }
-
 
     // Getters
 
@@ -85,15 +66,7 @@ public class Pilot {
         return age;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public int getSalary() {
+    public double getSalary() {
         return salary;
     }
 
@@ -123,21 +96,7 @@ public class Pilot {
         this.age = age;
     }
 
-    public void setHeight(int height) {
-        if(height < 140 || height > 250) {
-            throw new IllegalArgumentException("A altura deve ser entre 140 e 250 centimetros");
-        }
-        this.height = height;
-    }
-
-    public void setWeight(int weight) {
-        if(weight < 50 || weight > 200) {
-            throw new IllegalArgumentException("O peso deve ser entre 50 e 200 kilos");
-        }
-        this.weight = weight;
-    }
-
-    public void setSalary(int salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
@@ -151,5 +110,5 @@ public class Pilot {
         this.championPosition = championPosition;
     }
 
-    
+
 }
