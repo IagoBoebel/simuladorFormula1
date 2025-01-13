@@ -22,6 +22,15 @@ public class PilotDTO {
         this.championPosition = championPosition;
         this.teamName = teamName;
     }
+    public PilotDTO(int id, String name, int age, double salary, List<String> sponsors, int championPosition) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+        this.sponsors = sponsors;
+        this.championPosition = championPosition;
+        this.teamName = "Sem time";
+    }
 
     // Getters e Setters
     public int getId() {

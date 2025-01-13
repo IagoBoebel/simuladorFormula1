@@ -23,7 +23,20 @@ public interface PilotRepository extends JpaRepository<Pilot, Integer> {
 """)
     Iterable<PilotDTO> findAllPilotsWithTeamName();
 
+    @Query("SELECT p.name FROM Pilot p WHERE p.team.id = :teamId")
+    List<String> findPilotNamesByTeamId(Integer teamId);
 
+    @Query("""
+    SELECT new com.org.simuladorformula1.dto.PilotDTO(
+        p.id, p.name, p.age, p.salary, p.sponsors, p.championPosition
+    )
+    FROM Pilot p
+""")
+    Iterable<PilotDTO> findAllPilotsWithoutTeamName();
+
+
+
+    boolean existsByName(String pilotName);
 
     public Pilot findByNameIgnoreCase(String nome);
 }

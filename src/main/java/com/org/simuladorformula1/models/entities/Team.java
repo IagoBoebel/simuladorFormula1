@@ -55,14 +55,19 @@ public class Team {
         this.teamPrincipal = teamPrincipal;
     }
 
-    public List getPilots() {
+    public List<Pilot> getPilots() {
         return pilots;
     }
+
     public void addPilot(Pilot pilot) {
         if (this.pilots.size() >= 2) {
             throw new IllegalStateException("O time já possui 2 pilotos. Não é possível adicionar mais.");
         }
         this.pilots.add(pilot);  // Adiciona o piloto à lista
         pilot.setTeam(this);     // Atualiza a relação bidirecional
+    }
+
+    public void setPilots(List<Pilot> pilots) {
+        this.pilots = pilots;
     }
 }

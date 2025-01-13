@@ -40,10 +40,16 @@ public class PilotController {
         }
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchWithTeam")
     public Iterable<PilotDTO> searchPilot() {
         return pilotRepository.findAllPilotsWithTeamName();
     }
+
+    @GetMapping("/searchWithoutTeam")
+    public Iterable<PilotDTO> searchPilotWithout() {
+        return pilotRepository.findAllPilotsWithoutTeamName();
+    }
+
 
     @GetMapping("/searchByName/{name}")
     public Pilot searchByName(@PathVariable String name) {
